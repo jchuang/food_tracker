@@ -19,7 +19,15 @@ feature 'employee adds item to inventory' do
     fill_in 'Quantity', with: '3'
 
     click_on 'Add Item'
-    save_and_open_page
     expect(page).to have_content 'Item was successfully added.'
+  end
+
+  scenario 'all fields are required' do
+    visit 'items/new'
+    click_on 'Add Item'
+
+    expect(page).to have_content "Title can't be blank"
+    expect(page).to have_content "Description can't be blank"
+    expect(page).to have_content "Quantity can't be blank"
   end
 end
